@@ -2,7 +2,9 @@ const backend = require('../src')
 
 class CloudflareResponse extends backend.Response {
   getResponse() {
-    return new Response('Cloudflare Response!')
+    const { body, headers, status } = this
+
+    return new Response(body, { headers, status })
   }
 }
 
