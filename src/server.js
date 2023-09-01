@@ -1,6 +1,6 @@
-const netPkg = require('net')
+import netPkg from 'net'
 
-class Server {
+export class Server {
   port = '80'
 
   requests = []
@@ -39,5 +39,3 @@ class Server {
     })
   }
 }
-
-module.exports = { Server }

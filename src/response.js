@@ -1,6 +1,6 @@
-const { ApplicationError } = require('../errors/index.js')
+import { ApplicationError } from '../errors/index.js'
 
-class Response {
+export class Response {
   status = 200
   headers = new Headers()
   body = ''
@@ -35,5 +35,3 @@ class Response {
   }
 
 }
-
-module.exports = { Response }

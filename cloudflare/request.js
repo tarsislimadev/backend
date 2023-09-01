@@ -1,5 +1,3 @@
-const { Request } = require('../src/request.js')
+import backend from '../'
 
-class CloudflareRequest extends Request { }
-
-module.exports = { CloudflareRequest }
+export class CloudflareRequest extends backend.Request { }

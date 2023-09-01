@@ -1,11 +1,9 @@
-const backend = require('../src')
+import backend from '..'
 
-class CloudflareResponse extends backend.Response {
+export class CloudflareResponse extends backend.Response {
   getResponse() {
     const { body, headers, status } = this
 
     return new Response(body, { headers, status })
   }
 }
-
-module.exports = { CloudflareResponse }

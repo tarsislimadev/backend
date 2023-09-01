@@ -1,5 +1,5 @@
 
-class ApplicationError extends Error {
+export class ApplicationError extends Error {
   status = 400
   message = 'Application Error'
 
@@ -26,14 +26,8 @@ class ApplicationError extends Error {
   }
 }
 
-class NotFoundError extends ApplicationError {
+export class NotFoundError extends ApplicationError {
   constructor(extras = {}) {
     super(404, 'Not found.', extras)
   }
-}
-
-module.exports = {
-  ApplicationError,
-  //
-  NotFoundError,
 }
