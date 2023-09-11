@@ -1,9 +1,9 @@
 
 export class ApplicationError extends Error {
   status = 400
-  message = 'Application Error'
+  extras = {}
 
-  constructor(status = this.status, message = this.message, extras = {}) {
+  constructor(status = this.status, message = this.message, extras = this.extras) {
     super(message)
     this.status = status
     this.extras = extras
@@ -27,7 +27,7 @@ export class ApplicationError extends Error {
 }
 
 export class NotFoundError extends ApplicationError {
-  constructor(extras = {}) {
-    super(404, 'Not found.', extras)
+  constructor(extras = {}, message = 'Not found') {
+    super(404, message, extras)
   }
 }
