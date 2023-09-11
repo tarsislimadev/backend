@@ -1,25 +1,61 @@
-import * as backend from '../'
+import { Request as HttpRequest } from '../'
 
-export class CloudflareRequest extends backend.Request {
-  constructor({ method, url, body } = {}) {
-    super('')
+export class CloudflareRequest extends HttpRequest {
+  request = null
 
-    this.method = method
-    this.body = this.parseBody(body)
+  constructor(request = new Request()) {
+    super('', true)
 
-    const requestURL = new URL(url)
-
-    this.path = requestURL.pathname
-    this.queries = new URLSearchParams()
-    this.headers = new Headers()
-    this.json = {}
+    this.request = request
   }
 
-  parseBody(body) {
-    if (typeof body === 'string') {
-      return body
+  parsePath() {
+    console.log('this.request', this.request)
+
+    const pathURL = new URL(this.request.url)
+    return pathURL.pathname
+  }
+
+  parseQueries(url) {
+    return {}
+  }
+
+  parseHeaders(headers = new Headers()) {
+    return headers
+  }
+
+  async parseBody(body) {
+    if (body === null) {
+      return await Promise.resolve('')
     }
 
-    return ''
+    if (typeof body === 'string') {
+      return await Promise.resolve(body)
+    }
+
+    console.log({ body })
+
+    const { value } = await body.getReader().read()
+    return new TextDecoder().decode(value).toString()
   }
+
+  parseJSON(body = '') {
+    try {
+      return JSON.parse(body)
+    } catch (e) {
+      // console.error(e)
+    }
+
+    return {}
+  }
+
+  async parseProperties() {
+    this.method = this.request.method
+    this.pathname = this.parsePath(this.request.url)
+    this.queries = this.parseQueries(this.request.url)
+    this.headers = this.parseHeaders(this.request.headers)
+    this.body = await this.parseBody(this.request.body)
+    this.json = this.parseJSON(this.body)
+  }
+
 }

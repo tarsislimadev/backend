@@ -1,6 +1,6 @@
-import * as backend from '..'
+import { Response as HttpResponse  } from '..'
 
-export class CloudflareResponse extends backend.Response {
+export class CloudflareResponse extends HttpResponse {
   getResponse() {
     const { body, headers, status } = this
 
