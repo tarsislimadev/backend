@@ -1,9 +1,16 @@
+import { Request as HttpRequest } from '..'
 import { ApplicationError } from '../errors/index.js'
 
 export class Response {
   status = 200
   headers = new Headers()
   body = ''
+
+  request = null
+
+  constructor(request = new HttpRequest('')) {
+    this.request = request
+  }
 
   setJSON(json = {}, status = 200) {
     this.status = status
