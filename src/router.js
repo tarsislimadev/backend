@@ -1,5 +1,7 @@
 import { CloudflareRequest, CloudflareResponse } from '@brtmvdl/backend/cloudflare'
 
+import { NotFoundError } from '../errors/index.js'
+
 export class Router {
   requests = []
 
@@ -20,10 +22,12 @@ export class Router {
   run(req = new CloudflareRequest(), res = new CloudflareResponse()) {
     const { requests } = this
 
-    const cur = requests.find((request) => req.method == request.method && req.pathname == request.pathname)
+    const { method, pathname } = req
+
+    const cur = requests.find((request) => method == request.method && pathname == request.pathname)
 
     if (cur) return cur.fn(req, res)
 
-    return res.setError(new Error('not found'))
+    return res.setError(new NotFoundError({ method, pathname }))
   }
 }
