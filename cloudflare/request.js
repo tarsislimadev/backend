@@ -10,8 +10,6 @@ export class CloudflareRequest extends HttpRequest {
   }
 
   parsePath() {
-    console.log('this.request', this.request)
-
     const pathURL = new URL(this.request.url)
     return pathURL.pathname
   }
@@ -32,8 +30,6 @@ export class CloudflareRequest extends HttpRequest {
     if (typeof body === 'string') {
       return await Promise.resolve(body)
     }
-
-    console.log({ body })
 
     const { value } = await body.getReader().read()
     return new TextDecoder().decode(value).toString()
