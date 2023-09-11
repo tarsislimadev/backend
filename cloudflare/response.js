@@ -1,4 +1,4 @@
-import backend from '..'
+import * as backend from '..'
 
 export class CloudflareResponse extends backend.Response {
   getResponse() {
