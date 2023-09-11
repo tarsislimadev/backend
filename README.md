@@ -1,5 +1,7 @@
 # @brtmvdl/backend
 
+Easy back-end library
+
 ## install
 
 ```bash
