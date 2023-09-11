@@ -5,18 +5,18 @@ import { NotFoundError } from '../errors/index.js'
 export class Router {
   requests = []
 
-  request(method = 'GET', path = '/', fn = (() => { })) {
-    this.requests.push({ method, path, fn })
+  request(method = 'GET', pathname = '/', fn = (() => { })) {
+    this.requests.push({ method, pathname, fn })
 
     return this
   }
 
-  get(path = '/', fn = (() => { })) {
-    return this.request('GET', path, fn)
+  get(pathname = '/', fn = (() => { })) {
+    return this.request('GET', pathname, fn)
   }
 
-  post(path = '/', fn = (() => { })) {
-    return this.request('POST', path, fn)
+  post(pathname = '/', fn = (() => { })) {
+    return this.request('POST', pathname, fn)
   }
 
   run(req = new CloudflareRequest(), res = new CloudflareResponse()) {
@@ -24,7 +24,7 @@ export class Router {
 
     const { method, pathname } = req
 
-    const cur = requests.find((request) => method == request.method && pathname == request.pathname)
+    const cur = requests.find((r) => method == r.method && pathname == r.pathname)
 
     if (cur) return cur.fn(req, res)
 
