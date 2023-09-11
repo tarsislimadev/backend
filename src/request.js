@@ -38,6 +38,18 @@ export class Request {
   }
 
   parseJSON(chunk) {
-    return JSON.parse(this.parseBody(chunk))
+    try {
+      return JSON.parse(this.parseBody(chunk))
+    } catch (e) {
+      console.error(e)
+    }
+
+    return {}
+  }
+
+  toJSON() {
+    const { method, path, heders, body } = this
+
+    return { method, path, heders, body }
   }
 }
