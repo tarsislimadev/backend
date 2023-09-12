@@ -12,6 +12,15 @@ export class Response {
     this.request = request
   }
 
+  setHeader(key, value) {
+    this.headers.append(key, value)
+    return this
+  }
+
+  getHeader(key, def = null) {
+    return this.headers.get(key) || def
+  }
+
   setJSON(json = {}, status = 200) {
     this.status = status
     this.headers.append('content-type', 'application/json')

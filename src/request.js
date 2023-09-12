@@ -3,7 +3,7 @@ export class Request {
   method = null
   pathname = null
   queries = {}
-  heders = new Headers()
+  headers = new Headers()
   body = ''
   json = {}
 
@@ -17,6 +17,15 @@ export class Request {
       this.body = this.parseBody(chunk)
       this.json = this.parseJSON(chunk)
     }
+  }
+
+  setHeader(key, value) {
+    this.headers.append(key, value)
+    return this
+  }
+
+  getHeader(key, def = null) {
+    return this.headers.get(key) || def
   }
 
   parseMethod(chunk) {
