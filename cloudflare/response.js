@@ -1,16 +1,14 @@
-import { Response as HttpResponse  } from '..'
+import { Response as HttpResponse } from '..'
 
 export class CloudflareResponse extends HttpResponse {
   getResponse() {
-    if (this.request.method == 'OPTIONS') {
-      const status = 200
-      const headers = new Headers()
-      headers.append('Access-Control-Allow-Origin', '*')
-      headers.append('Access-Control-Allow-Headers', '*')
-      return new Response('', { headers, status })
-    }
-
     const { body, headers, status } = this
+    headers.append('Access-Control-Allow-Origin', '*')
+    headers.append('Access-Control-Allow-Headers', '*')
+
+    if (this.request.method == 'OPTIONS') {
+      return new Response('', { headers, status: 200 })
+    }
 
     return new Response(body, { headers, status })
   }
