@@ -50,4 +50,8 @@ export class Response {
     )
   }
 
+  toJSON() {
+    const { status, headers, body, } = this
+    return { status, headers, body, }
+  }
 }
