@@ -2,7 +2,7 @@ import { Response as HttpResponse  } from '..'
 
 export class CloudflareResponse extends HttpResponse {
   getResponse() {
-    if (!(this.request.method == 'OPTIONS')) {
+    if (this.request.method == 'OPTIONS') {
       const status = 200
       const headers = new Headers()
       headers.append('Access-Control-Allow-Origin', '*')
