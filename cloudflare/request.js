@@ -24,7 +24,7 @@ export class CloudflareRequest extends HttpRequest {
 
   async parseBody(body) {
     if (body === null) {
-      return await Promise.resolve('')
+      return await Promise.resolve('{}')
     }
 
     if (typeof body === 'string') {
