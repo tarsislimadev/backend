@@ -28,18 +28,16 @@ export class Router {
   }
 
   run(req = new CloudflareRequest(), res = new CloudflareResponse()) {
-    const { requests } = this
+    return new Promise(async (resolve) => {
+      const cur = this.requests.find((r) => {
+        const isMethod = r.method === '*' || r.method === req.method
+        const isPathname = r.pathname === '*' || r.pathname === req.pathname
+        return isMethod && isPathname
+      })
 
-    const { method, pathname } = req
+      if (cur) return resolve(cur.fn(req, res))
 
-    const cur = requests.find((r) => {
-      const isMethod = r.method === '*' || r.method === method
-      const isPathname = r.pathname === '*' || r.pathname === pathname
-      return isMethod && isPathname
+      return resolve(res.setError(new NotFoundError(req.toJSON())))
     })
-
-    if (cur) return cur.fn(req, res)
-
-    return res.setError(new NotFoundError({ method, pathname }))
   }
 }
