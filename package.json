@@ -2,5 +2,12 @@
   "name": "@brtmvdl/backend",
   "version": "0.15.4",
   "main": "src/index.js",
-  "bin": "bin/index.js"
+  "bin": "bin/index.js",
+  "description": "Easy Back-end Node.js library",
+  "homepage": "https://github.com/brtmvdl/backend#readme",
+  "url": "https://github.com/brtmvdl/backend/issues",
+  "funding": "https://opencollective.com/brtmvdl-backend",
+  "author": "Tarsis Lima (https://github.com/brtmvdl)",
+  "repository": "github:brtmvdl/backend",
+  "license": "MIT"
 }
