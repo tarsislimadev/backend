@@ -6,7 +6,7 @@ Easy Back-end Node.js library
 
 ## social & donate
 
-[Mercado Pago](https://link.mercadopago.com.br/brtmvdl) - [Telegram](https://t.me/+KRmg5MlqgMk0MTg5) - [Discord](https://discord.gg/aD2pZr4A)
+[Donate](https://link.mercadopago.com.br/brtmvdl) - [Telegram](https://t.me/+KRmg5MlqgMk0MTg5) - [Discord](https://discord.gg/aD2pZr4A)
 
 ## install
 
