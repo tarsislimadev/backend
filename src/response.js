@@ -42,6 +42,17 @@ export class HttpResponse {
     return { status, headers, body, }
   }
 
+  getStatusMessage(status = 200) {
+    switch (status) {
+      case 200: return 'OK'
+      case 400: return 'CLIENT ERROR'
+      case 404: return 'NOT FOUND'
+      case 500: return 'SERVER ERROR'
+    }
+
+    return 'ERROR'
+  }
+
   getFirstLine(status = 200) {
     return ['HTTP/1.1', this.getStatusMessage(status), status].join(' ')
   }
