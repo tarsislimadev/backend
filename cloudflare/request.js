@@ -1,9 +1,9 @@
-import { Request as HttpRequest } from '../'
+import { HttpRequest } from '../'
 
 export class CloudflareRequest extends HttpRequest {
   request = null
 
-  constructor(request = new Request()) {
+  constructor(request = new HttpRequest()) {
     super('', true)
 
     this.request = request

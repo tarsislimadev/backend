@@ -1,6 +1,6 @@
 import netPkg from 'net'
-import { HttpRequest } from './http/request.js'
-import { HttpResponse } from './http/response.js'
+import { HttpRequest } from './request.js'
+import { HttpResponse } from './response.js'
 
 export class Server {
   port = '80'

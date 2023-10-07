@@ -1,21 +1,22 @@
+import { BREAK_LINE } from '../utils/constants.js'
 
-export class Request {
+export class HttpRequest {
   method = null
   pathname = null
-  queries = {}
+  // queries = {}
   headers = new Headers()
   body = ''
-  json = {}
+  // json = {}
 
   constructor(buffer = '', cancel = false) {
     if (!cancel) {
       const chunk = buffer.toString()
       this.method = this.parseMethod(chunk)
       this.pathname = this.parsePath(chunk)
-      this.queries = this.parseQueries(chunk)
+      // this.queries = this.parseQueries(chunk)
       this.headers = this.parseHeaders(chunk)
       this.body = this.parseBody(chunk)
-      this.json = this.parseJSON(chunk)
+      // this.json = this.parseJSON(chunk)
     }
   }
 
@@ -29,11 +30,12 @@ export class Request {
   }
 
   parseMethod(chunk) {
-    return 'GET'
+    return this.parseSplittedFirstLine(chunk)[0]
   }
 
   parsePath(chunk) {
-    return '/'
+    const [path] = this.parseFullPath(chunk).split('?')
+    return path
   }
 
   parseQueries(chunk) {
@@ -41,20 +43,34 @@ export class Request {
   }
 
   parseHeaders(chunk) {
-    return new Headers()
+    const [allheaders,] = chunk.split(BREAK_LINE + BREAK_LINE)
+    const [, headers] = allheaders.split(BREAK_LINE)
+    return headers.reduce((hs, [key, value]) => ({ ...hs, [key]: value }), {})
   }
 
-  parseBody(chunk) {
-    return '{}'
+  parseBody(buffer) {
+    const [,body] = buffer.split(BREAK_LINE + BREAK_LINE)
+    return body
   }
 
   parseJSON(chunk) {
-    try {
-      return JSON.parse(this.parseBody(chunk))
-    } catch (e) {
-    }
-
     return {}
+  }
+
+  parseLines(chunk) {
+    return chunk.split(BREAK_LINE)
+  }
+
+  parseFirstLine(chunk) {
+    return this.parseLines(chunk)[0]
+  }
+
+  parseSplittedFirstLine(chunk) {
+    return this.parseFirstLine(chunk).split(' ')
+  }
+
+  parseFullPath(chunk) {
+    return this.parseSplittedFirstLine(chunk)[1]
   }
 
   toJSON() {

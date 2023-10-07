@@ -1,4 +1,4 @@
-import { CloudflareRequest, CloudflareResponse } from '@brtmvdl/backend/cloudflare'
+import { HttpRequest, HttpResponse } from '../'
 
 import { NotFoundError } from '../errors/index.js'
 
@@ -27,7 +27,7 @@ export class Router {
     return this.request('POST', pathname, fn)
   }
 
-  run(req = new CloudflareRequest(), res = new CloudflareResponse()) {
+  run(req = new HttpRequest(), res = new HttpResponse()) {
     return new Promise(async (resolve) => {
       const cur = this.requests.find((r) => {
         const isMethod = r.method === '*' || r.method === req.method
