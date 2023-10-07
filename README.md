@@ -10,21 +10,11 @@ Easy Back-end Node.js library
 
 ## install
 
-```bash
-npm i @brtmvdl/backend
-```
+![npm i](./images/npm-i-backend.png)
 
 ## how to use
 
-```js
-import { Server } from '@brtmvdl/backend'
-
-const server = new Server()
-
-server.get('/', (req, res) => res.setJSON({ id: Date.now() }))
-
-server.listen(80)
-```
+[![](./images/backend-index-js.png)](./sample/index.js)
 
 ## license
 
