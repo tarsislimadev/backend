@@ -1,5 +1,5 @@
-import { HttpRequest, HttpResponse } from '../'
-
+import { HttpRequest } from './request.js'
+import { HttpResponse } from './response.js'
 import { NotFoundError } from '../errors/index.js'
 
 export class Router {
