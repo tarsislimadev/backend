@@ -1,6 +1,6 @@
 {
   "name": "@brtmvdl/backend",
-  "version": "0.15.7",
+  "version": "0.16.0",
   "main": "src/index.js",
   "bin": "bin/index.js",
   "description": "Easy Back-end Node.js library",
