@@ -43,9 +43,7 @@ export class HttpRequest {
   }
 
   parseHeaders(chunk) {
-    const [allheaders,] = chunk.split(BREAK_LINE + BREAK_LINE)
-    const [, headers] = allheaders.split(BREAK_LINE)
-    return headers.reduce((hs, [key, value]) => ({ ...hs, [key]: value }), {})
+    return {}
   }
 
   parseBody(buffer) {
