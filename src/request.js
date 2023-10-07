@@ -1,4 +1,4 @@
-import { BREAK_LINE } from '../utils/constants.js'
+import { BREAK_LINE } from './utils/constants.js'
 
 export class HttpRequest {
   method = null
