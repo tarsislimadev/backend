@@ -1,5 +1,3 @@
+export const BREAK_LINE = '\r\n'
 
-export default {
-  BREAK_LINE: '\r\n',
-  BLANK: '',
-}
+export const BLANK = ''
