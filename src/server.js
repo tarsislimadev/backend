@@ -1,4 +1,6 @@
 import netPkg from 'net'
+import { HttpRequest } from './http/request.js'
+import { HttpResponse } from './http/response.js'
 
 export class Server {
   port = '80'
@@ -31,8 +33,8 @@ export class Server {
     const server = netPkg.createServer((socket) => {
       socket.on('data', (buffer) => {
         const chunk = buffer.toString()
-        const req = new Request(chunk)
-        const res = new Response(req)
+        const req = new HttpRequest(chunk)
+        const res = new HttpResponse(req)
         socket.write(this.run(req, res).toString())
         socket.end()
       })
