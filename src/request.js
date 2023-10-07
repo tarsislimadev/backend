@@ -34,20 +34,28 @@ export class HttpRequest {
   }
 
   parsePath(chunk) {
-    const [path] = this.parseFullPath(chunk).split('?')
+    const [headers,] = chunk.split(BREAK_LINE + BREAK_LINE)
+    const [first_line,] = headers
+    const [, fullpath,] = first_line
+    const [path,] = fullpath.split('?', 2)
     return path
   }
 
   parseQueries(chunk) {
-    return {}
+    // const [headers,] = chunk.split(BREAK_LINE + BREAK_LINE)
+    // const [first_line,] = headers
+    // const [, fullpath,] = first_line
+    // const [,queries = []] = fullpath.split('?', 2)
+    // return queries.reduce(() => {}, {})
+    return new URLSearchParams()
   }
 
   parseHeaders(chunk) {
-    return {}
+    return new Headers()
   }
 
   parseBody(buffer) {
-    const [,body] = buffer.split(BREAK_LINE + BREAK_LINE)
+    const [, body] = buffer.split(BREAK_LINE + BREAK_LINE)
     return body
   }
 
