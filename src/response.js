@@ -1,5 +1,6 @@
 import { HttpRequest } from './request.js'
 import { ApplicationError } from '../errors/index.js'
+import { BREAK_LINE } from './utils/constants.js'
 
 export class HttpResponse {
   status = 200
@@ -40,4 +41,27 @@ export class HttpResponse {
     const { status, headers, body, } = this
     return { status, headers, body, }
   }
+
+  getFirstLine(status = 200) {
+    return ['HTTP/1.1', this.getStatusMessage(status), status].join(' ')
+  }
+
+  getHeaders() {
+    return Array.from(this.headers).reduce((headers = [], [key, value]) => {
+      headers.push([key, value].join(': '))
+      return headers
+    }, [])
+  }
+
+  toString() {
+    return [
+      this.getFirstLine(this.status),
+      ...this.getHeaders(),
+      '',
+      this.body,
+      '',
+      ''
+    ].join(BREAK_LINE)
+  }
+
 }
