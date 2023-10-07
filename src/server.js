@@ -37,8 +37,10 @@ export class Server {
       socket.on('data', (buffer) => {
         const req = new HttpRequest(buffer.toString())
         const res = new HttpResponse(req)
-        socket.write(this.router.run(req, res).toString())
-        socket.end()
+        this.router.run(req, res).then((r) => {
+          socket.write(r.toString())
+          socket.end()
+        }).catch((err) => console.error(err))
       })
     })
 
