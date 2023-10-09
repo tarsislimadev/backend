@@ -29,6 +29,8 @@ server.listen(80)
 ```
 
 ```sh
+# bash
+
 node index.js
 ```
 
