@@ -17,6 +17,8 @@ npm i @brtmvdl/backend
 ## how to use
 
 ```js
+// index.js
+
 import { Server } from '@brtmvdl/backend'
 
 const server = new Server()
@@ -24,6 +26,10 @@ const server = new Server()
 server.get('/', (req, res) => res.setJSON({ id: Date.now() }))
 
 server.listen(80)
+```
+
+```sh
+node index.js
 ```
 
 ## license
