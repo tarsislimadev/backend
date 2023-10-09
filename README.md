@@ -10,7 +10,9 @@ Easy Back-end Node.js library
 
 ## install
 
-```sh
+```bash
+# bash
+
 npm i @brtmvdl/backend
 ```
 
