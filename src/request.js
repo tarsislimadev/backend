@@ -42,11 +42,6 @@ export class HttpRequest {
   }
 
   parseQueries(chunk) {
-    // const [headers,] = chunk.split(BREAK_LINE + BREAK_LINE)
-    // const [first_line,] = headers
-    // const [, fullpath,] = first_line
-    // const [,queries = []] = fullpath.split('?', 2)
-    // return queries.reduce(() => {}, {})
     return new URLSearchParams()
   }
 
@@ -60,6 +55,9 @@ export class HttpRequest {
   }
 
   parseJSON(chunk) {
+    try { return JSON.parse(this.parseBody(chunk)) }
+    catch (e) { }
+
     return {}
   }
 

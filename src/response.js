@@ -1,4 +1,4 @@
-import { HttpRequest } from './request.js'
+import { HttpRequest } from '../src/request.js'
 import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
 
@@ -31,10 +31,10 @@ export class HttpResponse {
 
   setError(error = new Error()) {
     if (error instanceof ApplicationError) {
-      return this.setJSON(error.getMessage(), error.getStatus())
+      return this.setJSON({ message: error.getMessage() }, error.getStatus())
     }
 
-    return this.setJSON({ message: error.message }, 500)
+    return this.setJSON({ message: error.message }, 400)
   }
 
   toJSON() {
@@ -74,5 +74,4 @@ export class HttpResponse {
       ''
     ].join(BREAK_LINE)
   }
-
 }
