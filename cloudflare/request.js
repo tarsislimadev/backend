@@ -1,9 +1,9 @@
-import { HttpRequest } from '../'
+import { HttpRequest } from '../src/request.js'
 
 export class CloudflareRequest extends HttpRequest {
   request = null
 
-  constructor(request = new HttpRequest()) {
+  constructor(request = new Request()) {
     super('', true)
 
     this.request = request
@@ -45,6 +45,14 @@ export class CloudflareRequest extends HttpRequest {
     return {}
   }
 
+  wait(time = 1) {
+    return new Promise((res) => {
+      const end = Date.now() + time
+      while (Date.now() < end) { }
+      res()
+    })
+  }
+
   async parseProperties() {
     this.method = this.request.method
     this.pathname = this.parsePath(this.request.url)
@@ -52,6 +60,6 @@ export class CloudflareRequest extends HttpRequest {
     this.headers = this.parseHeaders(this.request.headers)
     this.body = await this.parseBody(this.request.body)
     this.json = this.parseJSON(this.body)
+    await this.wait(2000)
   }
-
 }
