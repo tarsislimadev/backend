@@ -54,7 +54,7 @@ export class HttpResponse {
   }
 
   getFirstLine(status = 200) {
-    return ['HTTP/1.1', this.getStatusMessage(status), status].join(' ')
+    return ['HTTP/1.1', status, this.getStatusMessage(status)].join(' ')
   }
 
   getHeaders() {
