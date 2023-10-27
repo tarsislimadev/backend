@@ -1,4 +1,4 @@
-import { Response as HttpResponse } from '..'
+import { HttpResponse } from '../src/response.js'
 
 export class CloudflareResponse extends HttpResponse {
   getResponse() {
