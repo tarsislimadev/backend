@@ -10,7 +10,7 @@ Easy Back-end Node.js library
 
 ## how to install
 
-```bash
+```sh
 # bash
 
 npm i @brtmvdl/backend
@@ -18,9 +18,21 @@ npm i @brtmvdl/backend
 
 ## how to use
 
-```js
-// index.js
+### package.json
 
+```json
+{
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  ...
+}
+```
+
+### index.js
+
+```js
 import { Server } from '@brtmvdl/backend'
 
 const server = new Server()
@@ -29,6 +41,8 @@ server.get('/', (req, res) => res.setJSON({ id: Date.now() }))
 
 server.listen(80)
 ```
+
+### node start
 
 ```sh
 # bash
