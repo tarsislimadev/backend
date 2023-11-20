@@ -1,5 +1,7 @@
 import { BREAK_LINE } from './utils/constants.js'
 
+import { Headers } from './headers.js'
+
 export class HttpRequest {
   method = null
   pathname = null

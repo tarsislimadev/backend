@@ -1,5 +1,7 @@
 import { HttpRequest } from '../src/request.js'
 
+import { Headers } from '../../src/headers.js'
+
 export class CloudflareRequest extends HttpRequest {
   request = null
 
