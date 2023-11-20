@@ -26,7 +26,7 @@ npm i @brtmvdl/backend
   "scripts": {
     "start": "node index.js"
   },
-  ...
+  "...": "..."
 }
 ```
 
