@@ -6,7 +6,7 @@ Easy Back-end Node.js library
 
 ## social & donate
 
-[Donate](https://link.mercadopago.com.br/brtmvdl) - [Telegram](https://t.me/+KRmg5MlqgMk0MTg5) - [Discord](https://discord.gg/FpxetYYp)
+[Donate](https://link.mercadopago.com.br/brtmvdl) - [Telegram](https://t.me/+KRmg5MlqgMk0MTg5) - [Discord](https://discord.gg/2zWpWBgmPj)
 
 ## how to install
 
@@ -26,7 +26,7 @@ npm i @brtmvdl/backend
   "scripts": {
     "start": "node index.js"
   },
-  "...": "..."
+  ...
 }
 ```
 
