@@ -2,6 +2,7 @@ import { HttpRequest } from '../src/request.js'
 import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
 import messages from './response.messages.js'
+import mimes from './response.mimes.js'
 import fs from 'fs'
 
 export class HttpResponse {
@@ -23,13 +24,11 @@ export class HttpResponse {
   parseContenType(file = '') {
     const [_, ext] = file.split('.')
 
-    switch (ext) {
-      case 'html': return 'text/html'
-      case 'css': return 'text/css'
-      case 'js': return 'application/javascript'
-    }
+    const mime = mimes[ext]
 
-    return 'text/plain'
+    if (!mime) return 'text/plain'
+
+    return mime
   }
 
   setFile(file, status = '200') {
@@ -70,14 +69,14 @@ export class HttpResponse {
   }
 
   toJSON() {
-    const { status, headers, body, } = this
-    return { status, headers, body, }
+    const { status, headers, body } = this
+    return { status, headers, body }
   }
 
   getStatusMessage(status = '200') {
     const message = messages[status]
 
-    if (!message) return 'ERROR'
+    if (!message) return 'Error'
 
     return message
   }
@@ -107,5 +106,4 @@ export class HttpResponse {
       ''
     ].join(BREAK_LINE)
   }
-
 }
