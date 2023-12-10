@@ -1,9 +1,11 @@
 import { HttpRequest } from '../src/request.js'
 import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
+import messages from './response.messages.js'
+import fs from 'fs'
 
 export class HttpResponse {
-  status = 200
+  status = '200'
   headers = new Headers()
   body = ''
 
@@ -13,8 +15,38 @@ export class HttpResponse {
     this.request = request
   }
 
+  setStatus(status = '200') {
+    this.status = status
+    return this
+  }
+
+  parseContenType(file = '') {
+    const [_, ext] = file.split('.')
+
+    switch (ext) {
+      case 'html': return 'text/html'
+      case 'css': return 'text/css'
+      case 'js': return 'application/javascript'
+    }
+
+    return 'text/plain'
+  }
+
+  setFile(file, status = '200') {
+    this.setStatus(status)
+    this.setHeader('Content-Type', this.parseContenType(file))
+    this.body = fs.readFileSync(file).toString()
+    return this
+  }
+
+  redirect(pathname = '/', status = 302) {
+    this.setStatus(status)
+    this.setHeader('Location', pathname)
+    return this
+  }
+
   setHeader(key, value) {
-    this.headers.append(key, value)
+    this.headers.set(key, value)
     return this
   }
 
@@ -22,9 +54,9 @@ export class HttpResponse {
     return this.headers.get(key) || def
   }
 
-  setJSON(json = {}, status = 200) {
-    this.status = status
-    this.headers.set('content-type', 'application/json')
+  setJSON(json = {}, status = '200') {
+    this.setStatus(status)
+    this.setHeader('content-type', 'application/json')
     this.body = JSON.stringify(json, null, 4)
     return this
   }
@@ -34,7 +66,7 @@ export class HttpResponse {
       return this.setJSON({ message: error.getMessage() }, error.getStatus())
     }
 
-    return this.setJSON({ message: error.message }, 400)
+    return this.setJSON({ message: error.message }, '400')
   }
 
   toJSON() {
@@ -42,19 +74,20 @@ export class HttpResponse {
     return { status, headers, body, }
   }
 
-  getStatusMessage(status = 200) {
-    switch (status) {
-      case 200: return 'OK'
-      case 400: return 'CLIENT ERROR'
-      case 404: return 'NOT FOUND'
-      case 500: return 'SERVER ERROR'
-    }
+  getStatusMessage(status = '200') {
+    const message = messages[status]
 
-    return 'ERROR'
+    if (!message) return 'ERROR'
+
+    return message
   }
 
-  getFirstLine(status = 200) {
-    return ['HTTP/1.1', status, this.getStatusMessage(status)].join(' ')
+  getFirstLine(status = '200') {
+    const first = []
+    first.push(this.request.protocol)
+    first.push(status)
+    first.push(this.getStatusMessage(status))
+    return first.join(' ')
   }
 
   getHeaders() {
@@ -74,4 +107,5 @@ export class HttpResponse {
       ''
     ].join(BREAK_LINE)
   }
+
 }

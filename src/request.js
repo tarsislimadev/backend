@@ -1,24 +1,20 @@
 import { BREAK_LINE } from './utils/constants.js'
 
-import { Headers } from './headers.js'
-
 export class HttpRequest {
   method = null
-  pathname = null
-  // queries = {}
+  path = null
+  protocol = 'HTTP/1.1'
   headers = new Headers()
   body = ''
-  // json = {}
 
   constructor(buffer = '', cancel = false) {
     if (!cancel) {
       const chunk = buffer.toString()
       this.method = this.parseMethod(chunk)
-      this.pathname = this.parsePath(chunk)
-      // this.queries = this.parseQueries(chunk)
+      this.path = this.parsePath(chunk)
+      this.protocol = 'HTTP/1.1' //
       this.headers = this.parseHeaders(chunk)
       this.body = this.parseBody(chunk)
-      // this.json = this.parseJSON(chunk)
     }
   }
 
@@ -41,10 +37,6 @@ export class HttpRequest {
     const [, fullpath,] = first_line.split(' ')
     const [path,] = fullpath.split('?', 2)
     return path
-  }
-
-  parseQueries(chunk) {
-    return new URLSearchParams()
   }
 
   parseHeaders(chunk) {
@@ -80,7 +72,7 @@ export class HttpRequest {
   }
 
   toJSON() {
-    const { method, pathname: path, heders, body } = this
+    const { method, path, heders, body } = this
 
     return { method, path, heders, body }
   }
