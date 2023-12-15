@@ -3,6 +3,7 @@ import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
 import messages from './response.messages.js'
 import mimes from './response.mimes.js'
+import * as headers from './response.headers.js'
 import fs from 'fs'
 
 export class HttpResponse {
@@ -23,11 +24,8 @@ export class HttpResponse {
 
   parseContenType(file = '') {
     const [_, ext] = file.split('.')
-
     const mime = mimes[ext]
-
     if (!mime) return 'text/plain'
-
     return mime
   }
 
@@ -42,21 +40,22 @@ export class HttpResponse {
 
   setFile(file, status = '200') {
     this.setStatus(status)
-    this.setHeader('Content-Type', this.parseContenType(file))
+    this.setHeader(headers.ContentType, this.parseContenType(file))
     this.body = fs.readFileSync(file).toString()
-    return this
-  }
-
-  redirect(pathname = '/', status = 302) {
-    this.setStatus(status)
-    this.setHeader('Location', pathname)
     return this
   }
 
   setJSON(json = {}, status = '200') {
     this.setStatus(status)
-    this.setHeader('Content-Type', 'application/json')
+    this.setHeader(headers.ContentType, 'application/json')
     this.body = JSON.stringify(json, null, 4)
+    return this
+  }
+
+  setText(text = '', status = '200') {
+    this.setStatus(status)
+    this.setHeader(headers.ContentType, 'text/plain')
+    this.body = text.toString()
     return this
   }
 
@@ -68,16 +67,15 @@ export class HttpResponse {
     return this.setJSON({ message: error.message }, '400')
   }
 
-  toJSON() {
-    const { status, headers, body } = this
-    return { status, headers, body }
+  redirect(pathname = '/', status = 302) {
+    this.setStatus(status)
+    this.setHeader(headers.Location, pathname)
+    return this
   }
 
   getStatusMessage(status = '200') {
     const message = messages[status]
-
     if (!message) return 'Error'
-
     return message
   }
 

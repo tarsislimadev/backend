@@ -34,8 +34,6 @@ export class Server {
   listen(port = this.port) {
     const server = netPkg.createServer((socket) => {
       socket.on('data', (buffer) => {
-        console.log('buffer.string', buffer.toString())
-
         const req = new HttpRequest(buffer.toString())
         const res = new HttpResponse(req)
         const r = this.router.run(req, res)
