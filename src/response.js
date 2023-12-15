@@ -1,8 +1,8 @@
 import { HttpRequest } from '../src/request.js'
 import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
-import messages from './response.messages.js'
-import mimes from './response.mimes.js'
+import * as messages from './response.messages.js'
+import * as mimes from './response.mimes.js'
 import * as headers from './response.headers.js'
 import fs from 'fs'
 
@@ -10,7 +10,6 @@ export class HttpResponse {
   status = '200'
   headers = new Headers()
   body = ''
-
   request = null
 
   constructor(request = new HttpRequest('')) {
@@ -101,7 +100,6 @@ export class HttpResponse {
       '',
       this.body,
       '',
-      ''
     ].join(BREAK_LINE)
   }
 }
