@@ -5,7 +5,6 @@ import { Router } from './router.js'
 
 export class Server {
   port = 80
-
   router = new Router()
 
   addRequest(method = 'GET', path = '/', fn = (() => { })) {
@@ -35,12 +34,13 @@ export class Server {
   listen(port = this.port) {
     const server = netPkg.createServer((socket) => {
       socket.on('data', (buffer) => {
+        console.log('buffer.string', buffer.toString())
+
         const req = new HttpRequest(buffer.toString())
         const res = new HttpResponse(req)
-        this.router.run(req, res).then((r) => {
-          socket.write(r.toString())
-          socket.end()
-        }).catch((err) => console.error(err))
+        const r = this.router.run(req, res)
+        socket.write(r.toString())
+        socket.end()
       })
     })
 

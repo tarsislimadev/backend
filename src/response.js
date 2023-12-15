@@ -31,6 +31,15 @@ export class HttpResponse {
     return mime
   }
 
+  setHeader(key, value) {
+    this.headers.set(key, value)
+    return this
+  }
+
+  getHeader(key, def = null) {
+    return this.headers.get(key) || def
+  }
+
   setFile(file, status = '200') {
     this.setStatus(status)
     this.setHeader('Content-Type', this.parseContenType(file))
@@ -44,18 +53,9 @@ export class HttpResponse {
     return this
   }
 
-  setHeader(key, value) {
-    this.headers.set(key, value)
-    return this
-  }
-
-  getHeader(key, def = null) {
-    return this.headers.get(key) || def
-  }
-
   setJSON(json = {}, status = '200') {
     this.setStatus(status)
-    this.setHeader('content-type', 'application/json')
+    this.setHeader('Content-Type', 'application/json')
     this.body = JSON.stringify(json, null, 4)
     return this
   }
