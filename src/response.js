@@ -12,6 +12,10 @@ export class HttpResponse {
   body = ''
   request = null
 
+  events = []
+  sended = false
+  ended = false
+
   constructor(request = new HttpRequest('')) {
     this.request = request
   }
@@ -101,5 +105,37 @@ export class HttpResponse {
       this.body,
       '',
     ].join(BREAK_LINE)
+  }
+
+  register(name) {
+    if (!this.events[name]) this.events[name] = []
+    return this
+  }
+
+  on(name, fn = (() => { })) {
+    this.register(name)
+    this.events[name].push(fn)
+    return this
+  }
+
+  dispatch(name, value = null) {
+    this.register(name)
+    this.events[name].map((fn) => fn(value))
+    return this
+  }
+
+  send() {
+    if (this.ended) {
+      return this.dispatch('senderror', this)
+    }
+
+    this.sended = true
+    return this.dispatch('send', this)
+  }
+
+  end() {
+    if (!this.sended) this.send()
+    this.ended = true
+    return this.dispatch('end', null)
   }
 }
