@@ -37,10 +37,25 @@ export class HttpResponse {
     return this.headers.get(key) || def
   }
 
+  readFile(file) {
+    return fs.readFileSync(file).toString()
+  }
+
+  renderText(text = '', data = {}) {
+    return Object.keys(data).reduce((rendered = '', key) => rendered.replace(`{{${key}}}`, data[key]), text)
+  }
+
+  setView(file, data = {}, status = this.getStatus()) {
+    this.setStatus(status)
+    this.setHeader('Content-Type', 'text/html')
+    this.body = this.renderText(this.readFile(file), data)
+    return this
+  }
+
   setFile(file, status = this.getStatus()) {
     this.setStatus(status)
     this.setHeader('Content-Type', this.parseContenType(file))
-    this.body = fs.readFileSync(file).toString()
+    this.body = this.readFile(file)
     return this
   }
 
@@ -118,4 +133,5 @@ export class HttpResponse {
       '',
     ].join(BREAK_LINE)
   }
+
 }
