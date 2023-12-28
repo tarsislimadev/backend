@@ -34,8 +34,9 @@ export class HttpRequest {
   parsePath(chunk) {
     const [headers,] = chunk.split(BREAK_LINE + BREAK_LINE)
     const [first_line,] = headers.split(BREAK_LINE)
-    const [, fullpath = ''] = first_line.split(' ', 2)
-    return fullpath
+    const [, fullpath,] = first_line.split(' ')
+    const [path,] = fullpath.split('?', 2)
+    return path
   }
 
   parseHeaders(chunk) {

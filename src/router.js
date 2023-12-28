@@ -28,16 +28,14 @@ export class Router {
   }
 
   run(req = new HttpRequest(), res = new HttpResponse()) {
-    return new Promise((s, f) => {
-      const cur = this.requests.find((r) => {
-        const isMethod = r.method === '*' || r.method === req.method
-        const isPathname = r.pathname === '*' || r.pathname === req.path
-        return isMethod && isPathname
-      })
-
-      if (cur) return s(cur.fn(req, res))
-
-      f(new NotFoundError(req.toJSON()))
+    const cur = this.requests.find((r) => {
+      const isMethod = r.method === '*' || r.method === req.method
+      const isPathname = r.pathname === '*' || r.pathname === req.path
+      return isMethod && isPathname
     })
+
+    if (cur) return cur.fn(req, res)
+
+    return res.setError(new NotFoundError(req.toJSON()))
   }
 }

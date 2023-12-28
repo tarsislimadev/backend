@@ -1,9 +1,9 @@
 import { HttpRequest } from '../src/request.js'
 import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
-import messages from './response.messages.js'
-import mimes from './response.mimes.js'
-import headers from './response.headers.js'
+
+import * as mimes from './response.mimes.js'
+import * as headers from './response.headers.js'
 import fs from 'fs'
 
 export class HttpResponse {
@@ -11,10 +11,6 @@ export class HttpResponse {
   headers = new Headers()
   body = ''
   request = null
-
-  events = []
-  sended = false
-  ended = false
 
   constructor(request = new HttpRequest('')) {
     this.request = request
@@ -41,23 +37,23 @@ export class HttpResponse {
     return this.headers.get(key) || def
   }
 
-  setFile(file, status = '200') {
+  setFile(file, status = this.getStatus()) {
     this.setStatus(status)
-    this.setHeader(headers.ContentType, this.parseContenType(file))
+    this.setHeader('Content-Type', this.parseContenType(file))
     this.body = fs.readFileSync(file).toString()
     return this
   }
 
-  setJSON(json = {}, status = '200') {
+  setJSON(json = {}, status = this.getStatus()) {
     this.setStatus(status)
-    this.setHeader(headers.ContentType, 'application/json')
+    this.setHeader('Content-Type', 'application/json')
     this.body = JSON.stringify(json, null, 4)
     return this
   }
 
-  setText(text = '', status = '200') {
+  setText(text = '', status = this.getStatus()) {
     this.setStatus(status)
-    this.setHeader(headers.ContentType, 'text/plain')
+    this.setHeader('Content-Type', 'text/plain')
     this.body = text.toString()
     return this
   }
@@ -70,19 +66,35 @@ export class HttpResponse {
     return this.setJSON({ message: error.message }, '400')
   }
 
-  redirect(pathname = '/', status = 302) {
+  redirect(pathname = '/', status = '302') {
     this.setStatus(status)
-    this.setHeader(headers.Location, pathname)
+    this.setHeader('Location', pathname)
     return this
   }
 
-  getStatusMessage(status = '200') {
-    const message = messages[status]
-    if (!message) return 'Error'
-    return message
+  getStatus() {
+    return (this.status || '400')
   }
 
-  getFirstLine(status = '200') {
+  getStatusMessage(status = this.getStatus()) {
+    switch (status.toString()) {
+      case '200': return 'OK'
+      case '301': return 'Moved Permanently'
+      case '302': return 'Found'
+      case '303': return 'See Other'
+      case '304': return 'Not Modified'
+      case '400': return 'Client Error'
+      case '401': return 'Unauthorized'
+      case '403': return 'Forbidden'
+      case '404': return 'Not Found'
+      case '405': return 'Method Not Allowed'
+      case '500': return 'Server Error'
+    }
+
+    return 'Error'
+  }
+
+  getFirstLine(status = this.getStatus()) {
     const first = []
     first.push(this.request.protocol)
     first.push(status)
@@ -105,37 +117,5 @@ export class HttpResponse {
       this.body,
       '',
     ].join(BREAK_LINE)
-  }
-
-  register(name) {
-    if (!this.events[name]) this.events[name] = []
-    return this
-  }
-
-  on(name, fn = (() => { })) {
-    this.register(name)
-    this.events[name].push(fn)
-    return this
-  }
-
-  dispatch(name, value = null) {
-    this.register(name)
-    this.events[name].map((fn) => fn(value))
-    return this
-  }
-
-  send() {
-    if (this.ended) {
-      return this.dispatch('senderror', this)
-    }
-
-    this.sended = true
-    return this.dispatch('send', this)
-  }
-
-  end() {
-    if (!this.sended) this.send()
-    this.ended = true
-    return this.dispatch('end', null)
   }
 }
