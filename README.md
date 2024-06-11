@@ -50,6 +50,10 @@ server.listen(80)
 npm start
 ```
 
+## author
+
+[Tarsis Lima](https://www.linkedin.com/in/brtmvdl/)
+
 ## license
 
 [MIT](./LICENSE)
