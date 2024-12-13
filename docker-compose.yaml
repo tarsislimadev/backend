@@ -1,0 +1,7 @@
+services:
+  tests:
+    build: '.'
+    volumes:
+      - '.:/app'
+    ports:
+      - '8080:80'
