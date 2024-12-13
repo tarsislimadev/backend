@@ -1,7 +1,7 @@
 {
-  "name": "@brtmvdl/backend",
+  "name": "@tarsislimadev/backend",
   "type": "module",
-  "version": "1.0.14",
+  "version": "0.0.1",
   "main": "src/index.js",
   "bin": "bin/index.js",
   "description": "Easy Back-end Node.js library",
