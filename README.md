@@ -12,7 +12,6 @@ Easy Back-end Node.js library
 
 ```sh
 # bash
-
 npm i abackend
 ```
 
@@ -23,16 +22,15 @@ npm i abackend
 ```json
 {
   "type": "module",
-  "scripts": {
-    "start": "node index.js"
-  },
   ...
 }
 ```
 
-### index.js
+### write the server files
 
 ```js
+// index.js
+
 import { Server } from 'abackend'
 
 const server = new Server()
@@ -42,12 +40,10 @@ server.get('/', (req, res) => res.setJSON({ id: Date.now() }))
 server.listen(80)
 ```
 
-### node start
+### start
 
 ```sh
-# bash
-
-npm start
+node index.js
 ```
 
 ## author
