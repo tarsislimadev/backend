@@ -2,7 +2,7 @@
 
 Easy Back-end Node.js library
 
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/tarsislimadev/backend/npm-publish.yml?label=GitHub%20Actions&link=https%3A%2F%2Fgithub.com%2Fabackend%2Factions%2Fworkflows%2Fnpm-publish.yml)](https://github.com/tarsislimadev/backend/actions/workflows/npm-publish.yml) [![npm](https://img.shields.io/npm/dw/%40tarsislimadev/backend?label=NPM%20Weekly%20Downloads)](https://www.npmjs.com/package/abackend) [![github/stars](https://img.shields.io/github/stars/tarsislimadev/backend?style=social)](https://img.shields.io/github/stars/tarsislimadev/backend?style=social) 
+[![NPM Downloads by package author](https://img.shields.io/npm-stat/dw/tarsislimadev?label=NPM%20Downloads)](https://www.npmjs.com/package/abackend) [![github/stars](https://img.shields.io/github/stars/tarsislimadev/abackend?style=social)](https://img.shields.io/github/stars/tarsislimadev/abackend?style=social) 
 
 ## social & donate
 
