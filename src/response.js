@@ -1,9 +1,7 @@
 import { HttpRequest } from '../src/request.js'
 import { ApplicationError } from '../errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
-
 import * as mimes from './response.mimes.js'
-import * as headers from './response.headers.js'
 import fs from 'fs'
 
 export class HttpResponse {
