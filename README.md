@@ -1,4 +1,4 @@
-# [@tarsislimadev/backend](https://www.npmjs.com/package/@tarsislimadev/backend)
+# [abackend](https://www.npmjs.com/package/abackend)
 
 Easy Back-end Node.js library
 
