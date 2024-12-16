@@ -5,9 +5,9 @@
   "main": "src/index.js",
   "bin": "bin/index.js",
   "description": "Easy Back-end Node.js library",
-  "url": "https://github.com/brtmvdl/backend/issues",
+  "url": "https://github.com/tarsislimadev/backend/issues",
   "funding": "https://link.mercadopago.com.br/brtmvdl",
-  "author": "Tarsis Lima (https://github.com/brtmvdl)",
-  "repository": "github:brtmvdl/backend",
+  "author": "Tarsis Lima (https://github.com/tarsislimadev)",
+  "repository": "github:tarsislimadev/backend",
   "license": "MIT"
 }
