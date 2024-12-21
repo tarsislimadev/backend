@@ -10,6 +10,8 @@ Easy Back-end Node.js library
 
 ## how to write an app
 
+Watch on [Youtube](https://youtu.be/h1d-yo2yovk)
+
 ### set up your project
 
 ```sh
