@@ -1,0 +1,23 @@
+name: Surge Upload
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Surge Upload
+        run: npx surge ./docs
+        env:
+          SURGE_LOGIN: "${{ secrets.SURGE_LOGIN }}"
+          SURGE_TOKEN: "${{ secrets.SURGE_TOKEN }}"
