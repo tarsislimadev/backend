@@ -1,7 +1,9 @@
-const { Server } = require('abackend')
+// index.js
+
+import { Server } from 'abackend'
 
 const server = new Server()
 
-server.get('/', (_, res) => res)
+server.get('/', (req, res) => res.setJSON({ id: Date.now() }))
 
 server.listen(80)
