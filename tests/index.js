@@ -1,6 +1,4 @@
-console.log('tests')
-
-const { Server } = require('./index.js')
+const { Server } = require('abackend')
 
 const server = new Server()
 
