@@ -8,7 +8,7 @@ Easy Back-end Node.js library
 
 [Donate](https://link.mercadopago.com.br/brtmvdl)
 
-## how to install
+## how to write an app
 
 ### set up your project
 
