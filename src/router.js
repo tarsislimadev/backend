@@ -28,9 +28,21 @@ export class Router {
   }
 
   run(req = new HttpRequest(), res = new HttpResponse()) {
+    const splited_request = req.pathname.split('/')
     const cur = this.requests.find((r) => {
       const isMethod = r.method === '*' || r.method === req.method
-      const isPathname = r.pathname === '*' || r.pathname === req.path
+      const isPathname = r.pathname.split('/').every((p, ix) => {
+        if (p === splited_request[ix]) return true
+        if (p[0] === ':') return '' != splited_request[ix]
+        return false
+      })
+
+      if (isMethod && isPathname) {
+        req.pathname.split('/').every((p, ix) => {
+          if (p[0] == ':') req.setParam(p.substring(1), splited_request[ix])
+        })
+      }
+
       return isMethod && isPathname
     })
 
