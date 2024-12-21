@@ -1,8 +1,26 @@
 import { BREAK_LINE } from './utils/constants.js'
 
+class HttpRequestParams {
+  params = {}
+
+  setParam(key, value) {
+    this.params[key] = value
+    return this
+  }
+
+  getParam(key, def = null) {
+    return this.params[key] || def
+  }
+
+  toJSON() {
+    return this.params
+  }
+}
+
 export class HttpRequest {
   method = null
-  path = null
+  pathname = null
+  params = new HttpRequestParams()
   protocol = 'HTTP/1.1'
   headers = new Headers()
   body = ''
@@ -11,8 +29,9 @@ export class HttpRequest {
     if (!cancel) {
       const chunk = buffer.toString()
       this.method = this.parseMethod(chunk)
-      this.path = this.parsePath(chunk)
+      this.pathname = this.parsePath(chunk)
       this.protocol = 'HTTP/1.1' //
+      this.params = {} //
       this.headers = this.parseHeaders(chunk)
       this.body = this.parseBody(chunk)
     }
@@ -25,6 +44,15 @@ export class HttpRequest {
 
   getHeader(key, def = null) {
     return this.headers.get(key) || def
+  }
+
+  setParam(key, value) {
+    this.params.setParam(key, value)
+    return this
+  }
+
+  getParam(key, def = null) {
+    return this.params.getParam(key, def)
   }
 
   parseMethod(chunk) {
@@ -51,7 +79,6 @@ export class HttpRequest {
   parseJSON(chunk) {
     try { return JSON.parse(this.parseBody(chunk)) }
     catch (e) { }
-
     return {}
   }
 
@@ -72,8 +99,7 @@ export class HttpRequest {
   }
 
   toJSON() {
-    const { method, path, heders, body } = this
-
-    return { method, path, heders, body }
+    const { method, pathname, headers, body } = this
+    return { method, pathname, headers, body }
   }
 }
