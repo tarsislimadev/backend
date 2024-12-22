@@ -12,21 +12,21 @@ Easy Back-end Node.js library
 
 Watch on [Youtube](https://youtu.be/h1d-yo2yovk) how to get started with creating a new app using ABACKEND, following these steps:
 
-### set up your project
+### create a package.json file
 
 ```sh
 # bash
 npm init -y
 ```
 
-### install the library
+### install ABACKEND
 
 ```sh
 # bash
 npm i abackend
 ```
 
-### create your server
+### write your server
 
 ```js
 // index.js
