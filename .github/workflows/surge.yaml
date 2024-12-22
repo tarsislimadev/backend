@@ -8,6 +8,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -15,6 +16,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      - name: Date
+        run: date > ./docs/date.html
 
       - name: Surge Upload
         run: npx surge ./docs
