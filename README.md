@@ -10,7 +10,7 @@ Easy Back-end Node.js library
 
 ## how to write an app
 
-Watch on [Youtube](https://youtu.be/h1d-yo2yovk)
+Watch on [Youtube](https://youtu.be/h1d-yo2yovk) how to get started with creating a new app using ABACKEND, following these steps:
 
 ### set up your project
 
