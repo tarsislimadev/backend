@@ -1,9 +1,9 @@
 # View engine example
 
 ```js
-const express = require('express');
+const { Server } = require('abackend');
 const cons = require('@ladjs/consolidate');
-const app = express();
+const app = new Server();
 
 // assign the swig engine to .html files
 app.engine('html', cons.swig);
