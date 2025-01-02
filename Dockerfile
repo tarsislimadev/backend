@@ -6,4 +6,8 @@ COPY . .
 
 RUN node --version
 
-CMD node ./tests.js
+WORKDIR /app/tests
+
+RUN npm i
+
+CMD sh index.sh
