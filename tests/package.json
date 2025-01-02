@@ -1,10 +1,10 @@
 {
-  "name": "app",
-  "version": "0.0.1",
-  "main": "index.js",
+  "name": "abackend-tests",
   "type": "module",
-  "license": "MIT",
+  "version": "2025.01.02",
+  "main": "./index.js",
   "dependencies": {
-    "abackend": "^0.0.4"
-  }
+    "abackend": ".."
+  },
+  "license": "MIT"
 }
