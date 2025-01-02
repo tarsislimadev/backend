@@ -1,5 +1,5 @@
 import { HttpRequest } from '../src/request.js'
-import { ApplicationError } from '../errors/index.js'
+import { ApplicationError } from '../libs/errors/index.js'
 import { BREAK_LINE } from './utils/constants.js'
 import * as mimes from './response.mimes.js'
 import fs from 'fs'

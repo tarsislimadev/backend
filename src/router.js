@@ -1,6 +1,6 @@
 import { HttpRequest } from './request.js'
 import { HttpResponse } from './response.js'
-import { NotFoundError } from '../errors/index.js'
+import { NotFoundError } from '../libs/errors/index.js'
 
 export class Router {
   requests = []
