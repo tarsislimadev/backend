@@ -1,4 +1,4 @@
-# [abackend](https://www.npmjs.com/package/abackend)
+[![abackend](./images/abackend.png)](https://www.npmjs.com/package/abackend)
 
 Easy Back-end Node.js library
 
