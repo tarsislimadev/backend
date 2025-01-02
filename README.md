@@ -37,7 +37,9 @@ const server = new Server()
 
 server.get('/', (req, res) => res.setJSON({ id: Date.now() }))
 
-server.listen(80)
+server.listen(80).then((port) => console.log(`PORT: ${PORT}`))
+
+server.listen(8080) // more instances
 ```
 
 ### start your server
