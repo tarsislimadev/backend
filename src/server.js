@@ -4,8 +4,12 @@ import { HttpResponse } from './response.js'
 import { Router } from './router.js'
 
 export class Server {
+
   port = 80
+
   router = new Router()
+
+  intances = {}
 
   addRequest(method = 'GET', path = '/', fn = (() => { })) {
     this.router.request(method, path, fn)
@@ -34,7 +38,7 @@ export class Server {
   listen(port = this.port) {
     const self = this
 
-    return new Promise((res) => {
+    return this.intances[port] = new Promise((res) => {
       const server = netPkg.createServer((socket) => {
         socket.on('data', (buffer) => {
           const req = new HttpRequest(buffer.toString())
