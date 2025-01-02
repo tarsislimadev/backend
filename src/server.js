@@ -34,16 +34,18 @@ export class Server {
   listen(port = this.port) {
     const self = this
 
-    const server = netPkg.createServer((socket) => {
-      socket.on('data', (buffer) => {
-        const req = new HttpRequest(buffer.toString())
-        const res = new HttpResponse(req)
-        const r = self.router.run(req, res)
-        socket.write(r.toString())
-        socket.end()
+    return new Promise((res) => {
+      const server = netPkg.createServer((socket) => {
+        socket.on('data', (buffer) => {
+          const req = new HttpRequest(buffer.toString())
+          const res = new HttpResponse(req)
+          const r = self.router.run(req, res)
+          socket.write(r.toString())
+          socket.end()
+        })
       })
+  
+      server.listen(port, () => res(port))
     })
-
-    server.listen(port, () => console.log(`listening on port ${port}`))
   }
 }
